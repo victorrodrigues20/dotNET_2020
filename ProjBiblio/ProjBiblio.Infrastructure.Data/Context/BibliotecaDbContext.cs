@@ -10,6 +10,10 @@ namespace ProjBiblio.Infrastructure.Data.Context
 
         }
 
-        public DbSet<Autor> Autor { get; set; }   
+        public DbSet<Autor> Autor { get; set; }
+
+        public DbSet<Livro> Livro { get; set; }  
+
+        public DbSet<Usuario> Usuario { get; set; }
     }
 }

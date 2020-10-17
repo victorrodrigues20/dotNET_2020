@@ -1,5 +1,7 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using ProjBiblio.Domain.Entities;
+using ProjBiblio.Infrastructure.Data.Context.Config;
 
 namespace ProjBiblio.Infrastructure.Data.Context
 {
@@ -8,6 +10,18 @@ namespace ProjBiblio.Infrastructure.Data.Context
         public BibliotecaDbContext(DbContextOptions<BibliotecaDbContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // modelBuilder.ApplyConfiguration(new AutorConfiguration());
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            // // modelBuilder.Entity<Autor>()
+            // //     .Property(p => p.Nome)
+            // //     .IsRequired();
         }
 
         public DbSet<Autor> Autor { get; set; }

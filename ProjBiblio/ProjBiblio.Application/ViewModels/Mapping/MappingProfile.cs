@@ -7,7 +7,10 @@ namespace ProjBiblio.Application.ViewModels.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Autor, AutorViewModel>().ReverseMap();
+            CreateMap<Autor, AutorViewModel>()
+                .ForMember(dest => dest.Id, 
+                           opt => opt.MapFrom(src => src.AutorID))
+                .ReverseMap();
         }
     }
 }

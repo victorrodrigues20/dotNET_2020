@@ -7,5 +7,11 @@ namespace ProjBiblio.Application.Interfaces
         AutorListViewModel Get();
 
         AutorViewModel Get(int id);
+
+        AutorViewModel Post(AutorViewModel autor);
+
+        AutorViewModel Put(int id, AutorViewModel autor);
+
+        AutorViewModel Delete(int id);
     }
 }

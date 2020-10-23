@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProjBiblio.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using ProjBiblio.Infrastructure.IoC;
 
 namespace ProjBiblio.WebApi
 {
@@ -31,8 +32,9 @@ namespace ProjBiblio.WebApi
 
             // Add using Microsoft.EntityFrameworkCore; para aparecer a opção Use
             string conn = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<BibliotecaDbContext>(options => 
-                options.UseNpgsql(conn));
+
+            DependencyContainer.RegisterContexts(services, conn);
+            DependencyContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

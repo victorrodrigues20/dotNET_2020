@@ -6,18 +6,18 @@ namespace ProjBiblio.Application.Services
 {
     public class AutorService : IAutorService
     {
-        public IAutorRepository _autorRepository;
+        public IUnitOfWork _uow;
 
-        public AutorService(IAutorRepository autorRepository)
+        public AutorService(IUnitOfWork uow)
         {
-            this._autorRepository = autorRepository;
+            this._uow = uow;
         }
 
         public AutorListViewModel Get()
         {
             return new AutorListViewModel()
             {
-                Autores = this._autorRepository.Get()
+                Autores = this._uow.AutorRepository.Get()
             };
         }
     }

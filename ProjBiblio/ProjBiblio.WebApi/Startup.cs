@@ -33,8 +33,12 @@ namespace ProjBiblio.WebApi
             // Add using Microsoft.EntityFrameworkCore; para aparecer a opção Use
             string conn = Configuration.GetConnectionString("DefaultConnection");
 
+            DependencyContainer.RegisterMappers(services);
             DependencyContainer.RegisterContexts(services, conn);
-            DependencyContainer.RegisterServices(services);
+            DependencyContainer.RegisterServices(services); 
+            
+            services.AddControllers().AddNewtonsoftJson(options => 
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProjBiblio.Application.Interfaces;
@@ -25,6 +26,17 @@ namespace ProjBiblio.Infrastructure.IoC
         {
             services.AddDbContext<BibliotecaDbContext>(options => 
                 options.UseNpgsql(conn));
+        }
+
+        public static void RegisterMappers(IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Application.ViewModels.Mapping.MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

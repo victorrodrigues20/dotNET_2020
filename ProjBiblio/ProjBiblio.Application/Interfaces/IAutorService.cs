@@ -1,3 +1,4 @@
+using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.ViewModels;
 
 namespace ProjBiblio.Application.Interfaces
@@ -8,9 +9,9 @@ namespace ProjBiblio.Application.Interfaces
 
         AutorViewModel Get(int id);
 
-        AutorViewModel Post(AutorViewModel autor);
+        AutorViewModel Post(AutorInputModel autor);
 
-        AutorViewModel Put(int id, AutorViewModel autor);
+        AutorViewModel Put(int id, AutorInputModel autor);
 
         AutorViewModel Delete(int id);
     }

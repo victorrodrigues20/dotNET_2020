@@ -30,10 +30,11 @@ namespace ProjBiblio.Infrastructure.IoC
 
         public static void RegisterMappers(IServiceCollection services)
         {
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new Application.ViewModels.Mapping.MappingProfile());
-            });
+var mappingConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new Application.ViewModels.Mapping.MappingProfile());
+    mc.AddProfile(new Application.InputModels.Mapping.MappingProfile());
+});
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);

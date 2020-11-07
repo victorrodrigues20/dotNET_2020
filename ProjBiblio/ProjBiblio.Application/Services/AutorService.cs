@@ -1,4 +1,5 @@
 using AutoMapper;
+using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.Interfaces;
 using ProjBiblio.Application.ViewModels;
 using ProjBiblio.Domain.Entities;
@@ -31,9 +32,9 @@ namespace ProjBiblio.Application.Services
             return _mapper.Map<AutorViewModel>(autor);
         }
 
-        public AutorViewModel Post(AutorViewModel autorViewModel)
+        public AutorViewModel Post(AutorInputModel autorInputModel)
         {
-            var autor = _mapper.Map<Autor>(autorViewModel);
+            var autor = _mapper.Map<Autor>(autorInputModel);
 
             _uow.AutorRepository.Add(autor);
             _uow.Commit();
@@ -41,9 +42,9 @@ namespace ProjBiblio.Application.Services
             return _mapper.Map<AutorViewModel>(autor);
         }
 
-        public AutorViewModel Put(int id, AutorViewModel autorViewModel)
+        public AutorViewModel Put(int id, AutorInputModel autorInputModel)
         {
-            var autor = _mapper.Map<Autor>(autorViewModel);
+            var autor = _mapper.Map<Autor>(autorInputModel);
 
             _uow.AutorRepository.Update(autor);
             _uow.Commit();

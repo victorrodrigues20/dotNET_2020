@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.Interfaces;
 using ProjBiblio.Application.ViewModels;
 
@@ -34,7 +35,7 @@ namespace ProjBiblio.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] AutorViewModel autor)
+        public ActionResult Post([FromBody] AutorInputModel autor)
         {
             var result = _autorService.Post(autor);
 
@@ -43,14 +44,14 @@ namespace ProjBiblio.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] AutorViewModel autorViewModel)
+        public ActionResult Put(int id, [FromBody] AutorInputModel autor)
         {
-            if (id != autorViewModel.Id)
+            if (id != autor.Id)
             {
                 return BadRequest();
             }
 
-            var result = _autorService.Put(id, autorViewModel);
+            var result = _autorService.Put(id, autor);
 
             return new CreatedAtRouteResult("GetDetails", 
                 new { id = result.Id }, result);

@@ -29,5 +29,12 @@ namespace ProjBiblio.Infrastructure.Data.Context
         public DbSet<Livro> Livro { get; set; }  
 
         public DbSet<Usuario> Usuario { get; set; }
+
+        public DbSet<Emprestimo> Emprestimo { get; set; }
+
+        public DbSet<LivroAutor> LivroAutor { get; set; }
+
+        public DbSet<LivroEmprestimo> LivroEmprestimo { get; set; }
+
     }
 }

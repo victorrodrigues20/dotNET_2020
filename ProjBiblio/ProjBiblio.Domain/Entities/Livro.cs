@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ProjBiblio.Domain.Entities
 {
     public class Livro
@@ -9,5 +11,9 @@ namespace ProjBiblio.Domain.Entities
         public int? Quantidade { get; set; }
 
         public string Foto { get; set; }
+
+        public ICollection<LivroAutor> LivAutor { get; set; }
+
+        public ICollection<LivroEmprestimo> LivEmprestimo { get; set; }
     }
 }

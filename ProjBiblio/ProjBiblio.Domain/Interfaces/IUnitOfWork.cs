@@ -6,6 +6,8 @@ namespace ProjBiblio.Domain.Interfaces
     {
         IAutorRepository AutorRepository { get; }
 
+        ILivroRepository LivroRepository { get; }
+
          void Commit();
     }
 }

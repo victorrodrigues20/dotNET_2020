@@ -11,6 +11,11 @@ namespace ProjBiblio.Application.ViewModels.Mapping
                 .ForMember(dest => dest.Id, 
                            opt => opt.MapFrom(src => src.AutorID))
                 .ReverseMap();
+
+            CreateMap<Livro, LivroViewModel>()
+                .ForMember(dest => dest.Id, 
+                           opt => opt.MapFrom(src => src.LivroID))
+                .ReverseMap();
         }
     }
 }

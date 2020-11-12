@@ -16,6 +16,7 @@ namespace ProjBiblio.Infrastructure.IoC
         {
             //Projeto de Aplicação
             services.AddScoped<IAutorService, AutorService>();
+            services.AddScoped<ILivroService, LivroService>();
 
             //Projeto Domínio | Projeto Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -30,11 +31,11 @@ namespace ProjBiblio.Infrastructure.IoC
 
         public static void RegisterMappers(IServiceCollection services)
         {
-var mappingConfig = new MapperConfiguration(mc =>
-{
-    mc.AddProfile(new Application.ViewModels.Mapping.MappingProfile());
-    mc.AddProfile(new Application.InputModels.Mapping.MappingProfile());
-});
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new Application.ViewModels.Mapping.MappingProfile());
+                mc.AddProfile(new Application.InputModels.Mapping.MappingProfile());
+            });
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);

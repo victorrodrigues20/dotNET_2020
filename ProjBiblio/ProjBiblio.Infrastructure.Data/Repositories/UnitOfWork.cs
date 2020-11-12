@@ -7,12 +7,21 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
     {
         private AutorRepository _autorRepo; 
 
+        private LivroRepository _livroRepo;
+
         private BibliotecaDbContext _context;
 
         public IAutorRepository AutorRepository
         {
             get { 
                 return _autorRepo = _autorRepo ?? new AutorRepository(_context);
+            }
+        }
+
+        public ILivroRepository LivroRepository
+        {
+            get { 
+                return _livroRepo = _livroRepo ?? new LivroRepository(_context);
             }
         }
 

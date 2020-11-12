@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using ProjBiblio.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjBiblio.Infrastructure.IoC;
+using ProjBiblio.WebApi.Filters;
+using FluentValidation.AspNetCore;
+using ProjBiblio.Application.InputModels;
 
 namespace ProjBiblio.WebApi
 {
@@ -30,6 +33,11 @@ namespace ProjBiblio.WebApi
         {
             services.AddControllers();
 
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<LivroInputModelValidator>());
+            
             // Add using Microsoft.EntityFrameworkCore; para aparecer a opção Use
             string conn = Configuration.GetConnectionString("DefaultConnection");
 

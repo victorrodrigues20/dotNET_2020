@@ -1,4 +1,4 @@
-// using FluentValidation;
+using FluentValidation;
 
 namespace ProjBiblio.Application.InputModels
 {
@@ -13,17 +13,17 @@ namespace ProjBiblio.Application.InputModels
         public string Foto { get; set; }
     }
 
-    // public class LivroInputModelValidator : AbstractValidator<LivroInputModel>
-    // {
-    //     public LivroInputModelValidator()
-    //     {
-    //         RuleFor(x => x.Titulo).NotEmpty().WithMessage("O Nome é obrigatório.")
-    //                         .Length(0, 100).WithMessage("O Nome não pode exceder 100 caracteres.");
+    public class LivroInputModelValidator : AbstractValidator<LivroInputModel>
+    {
+        public LivroInputModelValidator()
+        {
+            RuleFor(x => x.Titulo).NotEmpty().WithMessage("O Nome é obrigatório.")
+                            .Length(0, 100).WithMessage("O Nome não pode exceder 100 caracteres.");
 
-    //         RuleFor(x => x.Quantidade)
-    //                         .GreaterThanOrEqualTo(0).WithMessage("A quantidade não pode ter valor negativo.");
+            RuleFor(x => x.Quantidade)
+                            .GreaterThanOrEqualTo(0).WithMessage("A quantidade não pode ter valor negativo.");
 
-    //         RuleFor(x => x.Foto).Length(0, 300).WithMessage("O Nome não pode exceder 300 caracteres.");     
-    //     }
-    // }
+            RuleFor(x => x.Foto).Length(0, 300).WithMessage("O Nome não pode exceder 300 caracteres.");     
+        }
+    }
 }

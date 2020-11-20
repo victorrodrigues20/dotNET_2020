@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ProjBiblio.Domain.Entities;
 using ProjBiblio.Domain.Interfaces;
@@ -29,6 +31,14 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
         public IEnumerable<Livro> GetLivrosSemEstoque()
         {
             return _context.Livro.Where(l => l.Quantidade == 0);
+        }
+
+        public void DeleteLivrosAutor(int livroID)
+        {
+            var livrosAutores = _context.LivroAutor.AsNoTracking()
+                                    .Where(la => la.LivroID == livroID);
+
+            _context.LivroAutor.RemoveRange(livrosAutores);
         }
     }
 }

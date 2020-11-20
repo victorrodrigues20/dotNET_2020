@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using ProjBiblio.Application.DTOs;
+
 namespace ProjBiblio.Application.ViewModels
 {
     public class LivroViewModel
@@ -9,5 +12,7 @@ namespace ProjBiblio.Application.ViewModels
         public int? Quantidade { get; set; }
 
         public string Foto { get; set; }
+
+        public IList<AutorSelectListDto> Autores { get; set; }
     }
 }

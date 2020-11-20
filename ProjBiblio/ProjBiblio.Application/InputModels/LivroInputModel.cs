@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using FluentValidation;
+using ProjBiblio.Application.DTOs;
 
 namespace ProjBiblio.Application.InputModels
 {
@@ -11,6 +13,8 @@ namespace ProjBiblio.Application.InputModels
         public int? Quantidade { get; set; }
 
         public string Foto { get; set; }
+
+        public IList<AutorSelectListDto> Autores { get; set; }
     }
 
     public class LivroInputModelValidator : AbstractValidator<LivroInputModel>

@@ -11,5 +11,6 @@ namespace ProjBiblio.Domain.Interfaces
         IEnumerable<Livro> GetLivrosSemEstoque();
         IEnumerable<Livro> GetLivrosContemTitulo(string titulo);
         IEnumerable<Livro> GetLivrosPorAutor(int autorID);
+        void DeleteLivrosAutor(int livroID);
     }
 }

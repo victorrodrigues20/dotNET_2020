@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 //using Newtonsoft.Json;
 using SiteBibliotecaMVC.Models;
@@ -55,8 +57,17 @@ namespace SiteBibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo,Quantidade,Foto")] LivroViewModel livro)
+        public async Task<IActionResult> Create([Bind("Id,Titulo,Quantidade,Foto")] LivroViewModel livro,
+            string[] selectedAutores)
         {
+            if (selectedAutores != null)
+            {
+                livro.Autores = new List<AutorSelectListDto>();
+
+                foreach (var idAutor in selectedAutores)
+                    livro.Autores.Add(new AutorSelectListDto() { AutorID = int.Parse(idAutor), Selecionado = true });
+            }
+
             var url = $"/Livros";
             var resposta = await _httpClient.PostAsJsonAsync<LivroViewModel>(url, livro);
 
@@ -90,11 +101,20 @@ namespace SiteBibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Quantidade,Foto")] LivroViewModel livro)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Quantidade,Foto")] LivroViewModel livro,
+            string[] selectedAutores)
         {
             if (id != livro.Id)
             {
                 return NotFound();
+            }
+
+            if (selectedAutores != null)
+            {
+                livro.Autores = new List<AutorSelectListDto>();
+
+                foreach (var idAutor in selectedAutores)
+                    livro.Autores.Add(new AutorSelectListDto() { AutorID = int.Parse(idAutor), Selecionado = true });
             }
 
             var url = $"/Livros/{id}";

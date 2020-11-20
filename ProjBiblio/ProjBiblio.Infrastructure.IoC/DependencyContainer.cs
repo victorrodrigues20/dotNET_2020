@@ -33,6 +33,7 @@ namespace ProjBiblio.Infrastructure.IoC
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
+                mc.AddProfile(new Application.DTOs.Mapping.MappingProfile());
                 mc.AddProfile(new Application.ViewModels.Mapping.MappingProfile());
                 mc.AddProfile(new Application.InputModels.Mapping.MappingProfile());
             });

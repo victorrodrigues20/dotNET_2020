@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProjBiblio.Application.DTOs;
 using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.Interfaces;
 using ProjBiblio.Application.ViewModels;
@@ -66,6 +69,14 @@ namespace ProjBiblio.WebApi.Controllers
             {
                 return NotFound();
             }
+
+            return result;
+        }
+
+        [HttpGet("listautoreslivro/{id}")]
+        public IList<AutorSelectListDto> ListagemAutoresPorLivro(int id)
+        {
+            var result = _autorService.ListagemAutoresPorLivro(id);
 
             return result;
         }

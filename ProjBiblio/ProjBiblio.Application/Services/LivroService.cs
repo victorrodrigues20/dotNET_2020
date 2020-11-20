@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
+using ProjBiblio.Application.DTOs;
 using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.Interfaces;
 using ProjBiblio.Application.ViewModels;
@@ -47,8 +49,18 @@ namespace ProjBiblio.Application.Services
 
         public LivroViewModel Put(int id, LivroInputModel livroInputModel)
         {
+            _uow.LivroRepository.DeleteLivrosAutor(id);
+            _uow.Commit();
+
             var livro = _mapper.Map<Livro>(livroInputModel);
 
+            foreach (var l in livro.LivAutor) {
+                l.Livro = livro;
+            }
+
+            // livro.LivAutor = new List<LivroAutor>();
+            // livro.LivAutor.Add(new LivroAutor() { AutorID = 16 });
+            
             _uow.LivroRepository.Update(livro);
             _uow.Commit();
 
@@ -69,5 +81,25 @@ namespace ProjBiblio.Application.Services
 
             return _mapper.Map<LivroViewModel>(livro);
         }
+        
+        // public LivroViewModel Get(int id)
+        // {
+        //     var livro = this._uow.LivroRepository.GetByIdInclude(a => a.LivroID == id);
+
+        //     if (livro == null)
+        //         livro = new Livro();
+
+        //     var livroViewModel = _mapper.Map<LivroViewModel>(livro);
+
+        //     livroViewModel.Autores = (from a in this._uow.AutorRepository.Get()
+        //                               select new AutorSelectListDto
+        //                               {
+        //                                   AutorID = a.AutorID,
+        //                                   Nome = a.Nome,
+        //                                   Selecionado = livro.LivAutor.Any(la => la.AutorID == a.AutorID)
+        //                               }).ToList();
+
+        //     return livroViewModel;
+        // }
     }
 }

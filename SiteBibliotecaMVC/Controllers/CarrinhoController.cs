@@ -1,114 +1,82 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SiteBibliotecaMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SiteBibliotecaMVC.Controllers
 {
     public class CarrinhoController : Controller
     {
-        // private readonly BibliotecaDbContext _context;
+        private readonly ILogger<CarrinhoController> _logger;
+        private readonly HttpClient _httpClient;
 
-        // private IServicoLogin _servicoLogin;
+        public CarrinhoController(ILogger<CarrinhoController> logger, HttpClient httpClient)
+        {
+            _logger = logger;
+            _httpClient = httpClient;
+        }
 
-        // public CarrinhoController(BibliotecaDbContext context,
-        //     IServicoLogin servicoLogin)
+        // GET: Autores
+        public async Task<IActionResult> Index()
+        {
+            string key = GetCarrinhoKey();
 
-        // {
-        //     _context = context;
-        //     _servicoLogin = servicoLogin;
-        // }
+            var url = $"/Carrinho/{key}";
+            var resposta = await _httpClient.GetFromJsonAsync<CarrinhoListViewModel>(url);
 
-        // // GET: Carrinho
-        // public ActionResult Index()
-        // {
-        //     if (GetCarrinho() == null)
-        //         SetCarrinho(new List<Livro>());
+            return View("List", resposta.Items);
+        }
 
-        //     return View(GetCarrinho());
-        // }
+        [HttpGet, ActionName("Adicionar")]
+        public async Task<ActionResult> Adicionar(int id)
+        {
+            var carrinho = new CarrinhoViewModel()
+            {
+                LivroID = id,
+                Quantidade = 1,
+                SessionUserID = GetCarrinhoKey()
+            };
 
-        // // GET: Carrinho
-        // public ActionResult Adicionar(int? id)
-        // {
-        //     List<Livro> listaLivros = GetCarrinho();
+            var url = $"/Carrinho";
+            var resposta = await _httpClient.PostAsJsonAsync<CarrinhoViewModel>(url, carrinho);
 
-        //     var livro = _context.Livro.FirstOrDefault(x => x.LivroID == id);
+            return RedirectToAction(nameof(Index));
+        }
 
-        //     listaLivros.Add(livro);
-        //     SetCarrinho(listaLivros);
+        [HttpGet, ActionName("Excluir")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //     return View("Index", GetCarrinho());
-        // }
+            var url = $"/Carrinho/{id}";
+            var resposta = await _httpClient.DeleteAsync(url);
 
-        // private List<Livro> GetCarrinho()
-        // {
-        //     string carrinhoStr = HttpContext.Session.GetString("Carrinho");
+            return RedirectToAction(nameof(Index));
+        }
 
-        //     if (carrinhoStr == null)
-        //         return new List<Livro>();
+        public async
 
-        //     return JsonConvert.DeserializeObject<List<Livro>>(carrinhoStr);
-        // }
+        private string GetCarrinhoKey()
+        {
+            if (TempData["CarrinhoKey"] == null)
+            {
+                TempData["CarrinhoKey"] = Guid.NewGuid().ToString();
+            }
 
-        // private void SetCarrinho(List<Livro> carrinho)
-        // {
-        //     string carrinhoStr = JsonConvert.SerializeObject(carrinho);
-        //     HttpContext.Session.SetString("Carrinho", carrinhoStr);
-        // }
+            TempData.Keep("CarrinhoKey");
 
-        // // POST: EmprestarLivros
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> EmprestarLivros()
-        // {
-        //     // Verificamos se o usuário está logado
-        //     if (_servicoLogin.UsuarioLogado())
-        //     {
-        //         // Pegar ID do Usuário (utilizando o serviço que criamos)
-        //         var usuario = _servicoLogin.RecuperarUsuario();
-
-        //         // Criar empréstimo
-        //         Emprestimo emprestimo = new Emprestimo()
-        //         {
-        //             DataInicio = DateTime.Now.ToString("dd/MM/yyyy"),
-        //             DataFim = DateTime.Now.AddDays(7).ToString("dd/MM/yyyy"),
-        //             Usuario = usuario,
-        //             LivEmprestimo = new List<LivroEmprestimo>()
-        //         };
-
-        //         // Resgatar lista de livros no carrinho
-        //         List<Livro> listaLivros = GetCarrinho();
-
-        //         // Inserir a lista de livros na tabela LivroEmprestimo
-        //         foreach (var item in listaLivros)
-        //         {
-        //             LivroEmprestimo livroEmprestimo = new LivroEmprestimo();
-        //             livroEmprestimo.LivroID = item.LivroID;
-        //             livroEmprestimo.Emprestimo = emprestimo;
-
-        //             emprestimo.LivEmprestimo.Add(livroEmprestimo);
-        //         }
-
-        //         // Inserir o novo empréstimo na tabela
-        //         _context.Add(emprestimo);
-        //         await _context.SaveChangesAsync();
-
-        //         // Alertas do site (utilizando TempData)
-        //         TempData["MsgAlert"] = "Empréstimo realizado com sucesso!";
-        //         TempData["MsgEstilo"] = "alert-success";
-        //     }
-        //     else
-        //     {
-        //         // Alerta do site (utilizando TempData)
-        //         TempData["MsgAlert"] = "Faça Login de sua aplicação!";
-        //         TempData["MsgEstilo"] = "alert-danger";
-        //     }
-
-        //     return View("Index", GetCarrinho());
-        // }
+            return TempData["CarrinhoKey"].ToString();
+        }
     }
 }

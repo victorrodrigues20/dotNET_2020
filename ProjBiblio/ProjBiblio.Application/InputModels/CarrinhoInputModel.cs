@@ -1,10 +1,12 @@
-using System.Collections.Generic;
+using System;
 
-namespace SiteBibliotecaMVC.Models
+namespace ProjBiblio.Application.InputModels
 {
-    public class CarrinhoViewModel
+    public class CarrinhoInputModel
     {
         public long Id { get; set; }
+        public DateTime Data { get; set; }
+
         public int? EmprestimoID { get; set; }
 
         public string SessionUserID { get; set; }
@@ -12,8 +14,6 @@ namespace SiteBibliotecaMVC.Models
         // Normalizar posteriormente em uma tabela CarrinhoItem
         // Fiz desse jeito só para facilitar a criação dos serviços
         public int LivroID { get; set; }
-
-        public string NomeLivro { get; set; }
 
         public int Quantidade { get; set; }
     }

@@ -8,6 +8,8 @@ namespace ProjBiblio.Domain.Interfaces
 
         ILivroRepository LivroRepository { get; }
 
+        ICarrinhoRepository CarrinhoRepository { get; }
+
          void Commit();
     }
 }

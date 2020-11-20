@@ -8,8 +8,8 @@ namespace ProjBiblio.Infrastructure.Data.Context.Config
     {
         public void Configure(EntityTypeBuilder<Carrinho> builder)
         {
-            //a Gera Chave Primaria Composta
-            builder.HasKey(bc => new { bc.CarrinhoID, bc.LivroID });
+            // Gera Chave Primaria Composta
+            builder.HasKey(c => c.CarrinhoID);
         }
     }
 }

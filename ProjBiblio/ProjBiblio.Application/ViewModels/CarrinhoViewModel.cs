@@ -1,6 +1,6 @@
-using System.Collections.Generic;
+using System;
 
-namespace SiteBibliotecaMVC.Models
+namespace ProjBiblio.Application.ViewModels
 {
     public class CarrinhoViewModel
     {

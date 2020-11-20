@@ -9,6 +9,8 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
 
         private LivroRepository _livroRepo;
 
+        private CarrinhoRepository _carrinhoRepo;
+
         private BibliotecaDbContext _context;
 
         public IAutorRepository AutorRepository
@@ -22,6 +24,13 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
         {
             get { 
                 return _livroRepo = _livroRepo ?? new LivroRepository(_context);
+            }
+        }
+
+        public ICarrinhoRepository CarrinhoRepository
+        {
+            get { 
+                return _carrinhoRepo = _carrinhoRepo ?? new CarrinhoRepository(_context);
             }
         }
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProjBiblio.Infrastructure.Data.Context;
@@ -9,9 +10,10 @@ using ProjBiblio.Infrastructure.Data.Context;
 namespace ProjBiblio.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BibliotecaDbContext))]
-    partial class BibliotecaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201120160631_AlterCarrinhoKeys")]
+    partial class AlterCarrinhoKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,11 +40,6 @@ namespace ProjBiblio.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("ProjBiblio.Domain.Entities.Carrinho", b =>
                 {
-                    b.Property<long>("CarrinhoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
                     b.Property<DateTime>("Data")
                         .HasColumnType("timestamp without time zone");
 
@@ -57,8 +54,6 @@ namespace ProjBiblio.Infrastructure.Data.Migrations
 
                     b.Property<string>("SessionUserID")
                         .HasColumnType("text");
-
-                    b.HasKey("CarrinhoID");
 
                     b.HasIndex("LivroID");
 

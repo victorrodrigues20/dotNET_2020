@@ -18,6 +18,17 @@ namespace ProjBiblio.Application.ViewModels.Mapping
                 .ForMember(dest => dest.Autores,
                             opt => opt.MapFrom(src => src.LivAutor))   
                 .ReverseMap();
+
+            CreateMap<Carrinho, CarrinhoViewModel>()
+                .ForMember(dest => dest.Id, 
+                           opt => opt.MapFrom(src => src.CarrinhoID))
+                .ForMember(dest => dest.NomeLivro,
+                           opt => 
+                            {
+                                opt.PreCondition(src => src.Livro != null);
+                                opt.MapFrom(src => src.Livro.Titulo);
+                            })
+                .ReverseMap();
         }
     }
 }

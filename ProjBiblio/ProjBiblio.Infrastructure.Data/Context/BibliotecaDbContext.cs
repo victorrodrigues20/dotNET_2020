@@ -36,5 +36,6 @@ namespace ProjBiblio.Infrastructure.Data.Context
 
         public DbSet<LivroEmprestimo> LivroEmprestimo { get; set; }
 
+        public DbSet<Carrinho> Carrinho { get; set; }
     }
 }

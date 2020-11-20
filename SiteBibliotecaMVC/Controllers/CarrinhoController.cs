@@ -65,8 +65,6 @@ namespace SiteBibliotecaMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async
-
         private string GetCarrinhoKey()
         {
             if (TempData["CarrinhoKey"] == null)

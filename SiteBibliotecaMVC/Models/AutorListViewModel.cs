@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using ProjBiblio.Domain.Entities;
 
-namespace ProjBiblio.Application.ViewModels
+namespace SiteBibliotecaMVC.Models
 {
     public class AutorListViewModel
     {

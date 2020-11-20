@@ -1,4 +1,4 @@
-@model IEnumerable<SiteBibliotecaMVC.Models.LivroViewModel>
+@model IEnumerable<SiteBibliotecaMVC.Models.AutorViewModel>
 
 @{
     ViewData["Title"] = "List";
@@ -16,13 +16,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Foto)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th></th>
         </tr>
@@ -34,13 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Foto)
+                @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -48,6 +36,6 @@
                 @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

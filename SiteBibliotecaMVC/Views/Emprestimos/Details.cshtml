@@ -1,4 +1,4 @@
-@* @model dotNET_2019.Models.Emprestimo
+@model SiteBibliotecaMVC.Models.EmprestimoViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,29 +11,26 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.UsuarioID)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataInicio)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataInicio)
         </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataFim)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataFim)
         </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataDevolucao)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataDevolucao)
         </dd>
+
     </dl>
 </div>
 
@@ -46,19 +43,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.LivEmprestimo)
+        @foreach (var item in Model.Livros)
         {
             <tr>
                 <td>
-                    <img class="card-img-top" src="~/@item.Livro.Foto" style="width:50px;height:50px">
+                    <img class="card-img-top" src="~/@item.Foto" style="width:50px;height:50px">
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Livro.Titulo)
+                    @Html.DisplayFor(modelItem => item.Titulo)
                 </td>
                 <td>
-                    @foreach (var livroAutor in item.Livro.LivAutor)
+                    @foreach (var livroAutor in item.Autores)
                     {
-                        @Html.DisplayFor(modelItem => livroAutor.Autor.Nome) 
+                        @Html.DisplayFor(modelItem => livroAutor.Nome) 
                        <br />
                     }
                 </td>
@@ -74,9 +71,6 @@
 
     @if (string.IsNullOrEmpty(Model.DataDevolucao))
     {
-        <a asp-action="DevolverLivros" asp-route-id="@Model.EmprestimoID" class="btn btn-danger">Devolu&ccedil;&atilde;o</a>
+        <a asp-action="DevolverLivros" asp-route-id="@Model.Id" class="btn btn-danger">Devolu&ccedil;&atilde;o</a>
     }
 </div>
-
-
- *@

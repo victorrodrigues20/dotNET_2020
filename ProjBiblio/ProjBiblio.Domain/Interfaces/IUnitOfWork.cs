@@ -10,6 +10,10 @@ namespace ProjBiblio.Domain.Interfaces
 
         ICarrinhoRepository CarrinhoRepository { get; }
 
+        IUsuarioRepository UsuarioRepository { get; }
+
+        IEmprestimoRepository EmprestimoRepository { get; }
+
          void Commit();
     }
 }

@@ -11,6 +11,10 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
 
         private CarrinhoRepository _carrinhoRepo;
 
+        private UsuarioRepository _usuarioRepo;
+
+        private EmprestimoRepository _emprestimoRepo;
+        
         private BibliotecaDbContext _context;
 
         public IAutorRepository AutorRepository
@@ -31,6 +35,20 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
         {
             get { 
                 return _carrinhoRepo = _carrinhoRepo ?? new CarrinhoRepository(_context);
+            }
+        }
+
+        public IUsuarioRepository UsuarioRepository
+        {
+            get { 
+                return _usuarioRepo = _usuarioRepo ?? new UsuarioRepository(_context);
+            }
+        }
+
+        public IEmprestimoRepository EmprestimoRepository
+        {
+            get { 
+                return _emprestimoRepo = _emprestimoRepo ?? new EmprestimoRepository(_context);
             }
         }
 

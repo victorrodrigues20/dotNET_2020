@@ -5,6 +5,6 @@ namespace ProjBiblio.Application.ViewModels
 {
     public class UsuarioListViewModel
     {
-        public IEnumerable<Usuario> Usuarios { get; set; }
+        public IEnumerable<UsuarioViewModel> Usuarios { get; set; }
     }
 }

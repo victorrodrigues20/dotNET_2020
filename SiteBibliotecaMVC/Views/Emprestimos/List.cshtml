@@ -1,4 +1,4 @@
-@* @model IEnumerable<dotNET_2019.Models.Emprestimo>
+@model IEnumerable<SiteBibliotecaMVC.Models.EmprestimoViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,14 +6,11 @@
 
 <h1>Index</h1>
 
-<a class="btn btn-success" asp-action="Imprimir">Imprimir</a>
+@* <a class="btn btn-success" asp-action="Imprimir">Imprimir</a> *@
 
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.DataInicio)
             </th>
@@ -30,9 +27,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Usuario.UsuarioID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.DataInicio)
             </td>
             <td>
@@ -42,9 +36,9 @@
                 @Html.DisplayFor(modelItem => item.DataDevolucao)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.EmprestimoID">Detalhes</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
             </td>
         </tr>
 }
     </tbody>
-</table> *@
+</table>

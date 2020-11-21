@@ -15,9 +15,9 @@
 else
 {
     <br />
-    <form asp-action="EmprestarLivros">
-        <input type="submit" value="Emprestar Livros" class="btn btn-default" />
-    </form>
+    @Html.ActionLink("Emprestar Livros", "EmprestarLivros")
+    <br />
+    @Html.ActionLink("Limpar", "LimparCarrinho")
 }
 
 @if (TempData["MsgAlert"] != null)

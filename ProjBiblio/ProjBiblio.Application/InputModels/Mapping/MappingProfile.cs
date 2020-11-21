@@ -23,6 +23,11 @@ namespace ProjBiblio.Application.InputModels.Mapping
                 .ForMember(dest => dest.Id, 
                             opt => opt.MapFrom(src => src.CarrinhoID))
                 .ReverseMap();
+
+            CreateMap<Usuario, UsuarioInputModel>()
+                .ForMember(dest => dest.Id, 
+                           opt => opt.MapFrom(src => src.UsuarioID))
+                .ReverseMap();
         }
     }
 }

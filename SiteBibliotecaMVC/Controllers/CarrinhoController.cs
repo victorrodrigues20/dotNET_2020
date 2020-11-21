@@ -65,6 +65,34 @@ namespace SiteBibliotecaMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet, ActionName("EmprestarLivros")]
+        public async Task<IActionResult> EmprestarLivros()
+        {
+            var url = $"/Emprestimos";
+            var emprestimo = new EmprestimoInputModel()
+            {
+                SessionUserId = GetCarrinhoKey()
+            };
+
+            var resposta = await _httpClient.PostAsJsonAsync(url, emprestimo);
+
+            if (!resposta.IsSuccessStatusCode)
+            {
+                return BadRequest();
+            }
+
+            TempData.Remove("CarrinhoKey");
+            
+            return RedirectToAction("Index", "Emprestimos");
+        }
+
+        [HttpGet, ActionName("LimparCarrinho")]
+        public IActionResult LimparCarrinho()
+        {
+            TempData.Remove("CarrinhoKey");
+            return RedirectToAction(nameof(Index));
+        }
+
         private string GetCarrinhoKey()
         {
             if (TempData["CarrinhoKey"] == null)

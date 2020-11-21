@@ -18,6 +18,7 @@ namespace ProjBiblio.Infrastructure.IoC
             services.AddScoped<IAutorService, AutorService>();
             services.AddScoped<ILivroService, LivroService>();
             services.AddScoped<ICarrinhoService, CarrinhoService>();
+            services.AddScoped<IEmprestimoService, EmprestimoService>();
 
             //Projeto Domínio | Projeto Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();

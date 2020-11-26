@@ -8,6 +8,7 @@ using ProjBiblio.Application.ViewModels;
 
 namespace ProjBiblio.WebApi.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
 
@@ -37,6 +38,21 @@ namespace ProjBiblio.WebApi.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Inclui um novo cliente
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de request:
+        /// 
+        /// {
+        ///     "id" : 0,
+        ///     "nome": "Novo Autor"
+        /// }
+        /// 
+        /// </remarks>
+        /// <param name="autor"> objeto AutorInputModel</param>
+        /// <returns>objeto autor incluído</returns>
+        /// <remarks>retorna um objeto autor incluído</remarks>
         [HttpPost]
         public ActionResult Post([FromBody] AutorInputModel autor)
         {

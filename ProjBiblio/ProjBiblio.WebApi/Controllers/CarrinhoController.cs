@@ -23,6 +23,7 @@ namespace ProjBiblio.WebApi.Controllers
             return _carrinhoService.GetPorSession(id);
         }
 
+        [HttpPost]
         public ActionResult Post([FromBody] CarrinhoInputModel carrinho)
         {
              _carrinhoService.Post(carrinho);

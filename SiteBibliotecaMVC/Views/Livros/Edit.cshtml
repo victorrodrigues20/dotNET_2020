@@ -33,6 +33,10 @@
                 <span asp-validation-for="Foto" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="col-md-2 control-label">Autores</label>
+                @await Component.InvokeAsync("AutorList", new { livroID = Model.Id })
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

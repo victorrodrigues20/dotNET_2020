@@ -17,5 +17,10 @@ namespace ProjBiblio.Domain.Entities
         public string DataDevolucao { get; set; }
 
         public ICollection<LivroEmprestimo> LivEmprestimo { get; set; }
+
+        public Emprestimo()
+        {
+            LivEmprestimo = new List<LivroEmprestimo>();
+        }
     }
 }

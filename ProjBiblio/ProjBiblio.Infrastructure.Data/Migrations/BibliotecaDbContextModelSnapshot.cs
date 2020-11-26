@@ -36,6 +36,35 @@ namespace ProjBiblio.Infrastructure.Data.Migrations
                     b.ToTable("Autor");
                 });
 
+            modelBuilder.Entity("ProjBiblio.Domain.Entities.Carrinho", b =>
+                {
+                    b.Property<long>("CarrinhoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("EmprestimoID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LivroID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SessionUserID")
+                        .HasColumnType("text");
+
+                    b.HasKey("CarrinhoID");
+
+                    b.HasIndex("LivroID");
+
+                    b.ToTable("Carrinho");
+                });
+
             modelBuilder.Entity("ProjBiblio.Domain.Entities.Emprestimo", b =>
                 {
                     b.Property<int>("EmprestimoID")
@@ -140,6 +169,15 @@ namespace ProjBiblio.Infrastructure.Data.Migrations
                     b.HasKey("UsuarioID");
 
                     b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("ProjBiblio.Domain.Entities.Carrinho", b =>
+                {
+                    b.HasOne("ProjBiblio.Domain.Entities.Livro", "Livro")
+                        .WithMany()
+                        .HasForeignKey("LivroID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjBiblio.Domain.Entities.Emprestimo", b =>

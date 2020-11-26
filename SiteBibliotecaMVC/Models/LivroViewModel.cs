@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 namespace SiteBibliotecaMVC.Models
 {
     public class LivroViewModel
@@ -10,5 +12,7 @@ namespace SiteBibliotecaMVC.Models
         public int? Quantidade { get; set; }
 
         public string Foto { get; set; }
+
+        public IList<AutorSelectListDto> Autores { get; set; }
     }
 }

@@ -1,4 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
+using ProjBiblio.Application.DTOs;
 using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.Interfaces;
 using ProjBiblio.Application.ViewModels;
@@ -20,9 +24,11 @@ namespace ProjBiblio.Application.Services
 
         public AutorListViewModel Get()
         {
+            var autores = this._uow.AutorRepository.Get();
+
             return new AutorListViewModel()
             {
-                Autores = this._uow.AutorRepository.Get()
+                Autores =  _mapper.Map<IEnumerable<AutorViewModel>>(autores)
             };
         }
 
@@ -65,6 +71,20 @@ namespace ProjBiblio.Application.Services
             _uow.Commit();
 
             return _mapper.Map<AutorViewModel>(autor);
+        }
+
+        public IList<AutorSelectListDto> ListagemAutoresPorLivro(int idLivro)
+        {
+            var autores = this._uow.AutorRepository.Get().ToList();
+            var autoresLivro = this._uow.AutorRepository.GetAutoresPorLivro(idLivro);
+
+            return (from a in autores
+                    select new AutorSelectListDto
+                    {
+                        AutorID = a.AutorID,
+                        Nome = a.Nome,
+                        Selecionado = autoresLivro.Any(la => la.AutorID == a.AutorID)
+                    }).ToList();
         }
     }
 }

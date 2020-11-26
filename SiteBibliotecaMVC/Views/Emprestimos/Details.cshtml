@@ -1,0 +1,76 @@
+@model SiteBibliotecaMVC.Models.EmprestimoViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Emprestimo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataInicio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataInicio)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataFim)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataFim)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataDevolucao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataDevolucao)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagem</th>
+            <th>T&iacute;tulo</th>
+            <th>Autor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Livros)
+        {
+            <tr>
+                <td>
+                    <img class="card-img-top" src="~/@item.Foto" style="width:50px;height:50px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @foreach (var livroAutor in item.Autores)
+                    {
+                        @Html.DisplayFor(modelItem => livroAutor.Nome) 
+                       <br />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+    
+    <br />
+
+    @if (string.IsNullOrEmpty(Model.DataDevolucao))
+    {
+        <a asp-action="DevolverLivros" asp-route-id="@Model.Id" class="btn btn-danger">Devolu&ccedil;&atilde;o</a>
+    }
+</div>

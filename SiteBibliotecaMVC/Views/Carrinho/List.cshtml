@@ -1,0 +1,63 @@
+@model IList<SiteBibliotecaMVC.Models.CarrinhoViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Carrinho</h1>
+
+@if (Model == null || Model.Count() == 0)
+{
+    <br />
+    <h3>Carrinho está vazio</h3>
+
+}
+else
+{
+    <br />
+    @Html.ActionLink("Emprestar Livros", "EmprestarLivros")
+    <br />
+    @Html.ActionLink("Limpar", "LimparCarrinho")
+}
+
+@if (TempData["MsgAlert"] != null)
+{
+    <br>
+    <div class="alert alert-dismissible @TempData["MsgEstilo"]" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Aten&ccedil;&atilde;o!!!</strong>&nbsp;@TempData["MsgAlert"]
+    </div>
+}
+
+<br />
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+
+@{
+    int qtde = 0;
+    foreach (var item in Model)
+    {
+        qtde++;
+        <tr>
+            <td>@qtde</td>
+            <td>@item.NomeLivro</td>
+            <td>@item.Quantidade</td>
+            <td>
+                @Html.ActionLink("Excluir", "Excluir", new { id=item.Id })
+            </td>
+        </tr>
+    }
+}
+    </tbody>
+</table>

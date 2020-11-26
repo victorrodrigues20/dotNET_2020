@@ -15,5 +15,11 @@ namespace ProjBiblio.Domain.Entities
         public ICollection<LivroAutor> LivAutor { get; set; }
 
         public ICollection<LivroEmprestimo> LivEmprestimo { get; set; }
+
+        public Livro()
+        {
+            LivAutor = new List<LivroAutor>();
+            LivEmprestimo = new List<LivroEmprestimo>();
+        }
     }
 }

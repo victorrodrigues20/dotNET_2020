@@ -44,7 +44,8 @@ namespace ProjBiblio.Infrastructure.Data.Repositories
 
         public void Update(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Attach(entity).State = EntityState.Modified;
+            // _context.Entry(entity).State = EntityState.Modified;
             _context.Set<T>().Update(entity);
             // _context.SaveChanges();
         }

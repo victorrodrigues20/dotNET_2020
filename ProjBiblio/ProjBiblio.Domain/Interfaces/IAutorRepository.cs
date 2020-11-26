@@ -6,5 +6,7 @@ namespace ProjBiblio.Domain.Interfaces
     public interface IAutorRepository : IRepository<Autor>
     {
         IEnumerable<Autor> GetAutoresContemNome(string nome);
+
+        IEnumerable<Autor> GetAutoresPorLivro(int idLivro);
     }
 }

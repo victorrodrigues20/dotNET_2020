@@ -31,7 +31,7 @@ namespace ProjBiblio.WebApi.Controllers
             if (result == null)
                 return NotFound();
 
-            return _livroService.Get(id);
+            return result;
         }
 
         [HttpPost]

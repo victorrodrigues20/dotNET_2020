@@ -8,7 +8,9 @@ using Microsoft.Extensions.Logging;
 namespace ProjBiblio.WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion( "1" )]
+    [Route("v{version:apiVersion}/[controller]")]
+    [Produces("application/json")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

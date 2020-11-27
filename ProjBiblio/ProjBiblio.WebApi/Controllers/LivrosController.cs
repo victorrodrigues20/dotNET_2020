@@ -6,8 +6,9 @@ using ProjBiblio.Application.ViewModels;
 namespace ProjBiblio.WebApi.Controllers
 {
     [ApiController]
-    [Route("Livros")]
-
+    [ApiVersion( "1" )]
+    [Route("v{version:apiVersion}/[controller]")]
+    [Produces("application/json")]
     public class LivrosController  : ControllerBase
     {
         private ILivroService _livroService;

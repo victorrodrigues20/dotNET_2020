@@ -10,14 +10,14 @@ using ProjBiblio.Application.ViewModels;
 namespace ProjBiblio.WebApi.Controllers
 {
     [ApiController]
-    [ApiVersion( "1" )]
+    [ApiVersion( "2" )]
     [Route("v{version:apiVersion}/Autores")]
     [Produces("application/json")]
-    public class AutoresController  : ControllerBase
+    public class AutoresV2Controller  : ControllerBase
     {
         private IAutorService _autorService;
 
-        public AutoresController(IAutorService autorService)
+        public AutoresV2Controller(IAutorService autorService)
         {
             this._autorService = autorService;
         }

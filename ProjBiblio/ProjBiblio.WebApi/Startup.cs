@@ -41,6 +41,13 @@ namespace ProjBiblio.WebApi
                 opt.Filters.Add(typeof(ValidatorActionFilter));
             }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<LivroInputModelValidator>());
             
+            //services.AddApiVersioning();
+            services.AddApiVersioning(o => {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1,0);
+                //o.ReportApiVersions = true;
+            });
+
             // Add using Microsoft.EntityFrameworkCore; para aparecer a opção Use
             string conn = Configuration.GetConnectionString("DefaultConnection");
 
@@ -48,17 +55,40 @@ namespace ProjBiblio.WebApi
             DependencyContainer.RegisterContexts(services, conn);
             DependencyContainer.RegisterServices(services); 
             
-            services.AddControllers().AddNewtonsoftJson(options => 
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
             // Register the Swagger generator, defining 1 or more Swagger documents
+            // services.AddSwaggerGen(c =>
+            // {
+            //     c.SwaggerDoc("v1", new OpenApiInfo
+            //     {
+            //         Version = "v1",
+            //         Title = "Biblioteca API",
+            //         Description = "Web API - Projeto Biblioteca FIB/BAURU",
+            //         TermsOfService = new Uri("https://example.com/terms"),
+            //         Contact = new OpenApiContact
+            //         {
+            //             Name = "Victor Rodrigues",
+            //             Email = "victorassisrd@gmail.com",
+            //             Url = new Uri("https://github.com/victorrodrigues20"),
+            //         },
+            //         License = new OpenApiLicense
+            //         {
+            //             Name = "Use under LICX",
+            //             Url = new Uri("https://example.com/license"),
+            //         }
+            //     });
+
+                // // Set the comments path for the Swagger JSON and UI.
+                // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                // c.IncludeXmlComments(xmlPath);
+            // });
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
+                c.SwaggerDoc("v1", new OpenApiInfo{
                     Version = "v1",
-                    Title = "Biblioteca API",
-                    Description = "Web API - Projeto Biblioteca FIB/BAURU",
+                    Title = "API V1 Title",
+                    Description = "API V1 Description",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
@@ -73,11 +103,37 @@ namespace ProjBiblio.WebApi
                     }
                 });
 
+                c.SwaggerDoc("v2", new OpenApiInfo{
+                    Version = "v2",
+                    Title = "API V2 Title",
+                    Description = "API V1 Description",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Victor Rodrigues",
+                        Email = "victorassisrd@gmail.com",
+                        Url = new Uri("https://github.com/victorrodrigues20"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+
+                c.ResolveConflictingActions(a => a.First());
+                c.OperationFilter<RemoveVersionFromParameter>();
+                c.DocumentFilter<ReplaceVersionWithExactValueInPath>();
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddControllers().AddNewtonsoftJson(options => 
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,18 +144,16 @@ namespace ProjBiblio.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MinhaAPI V1");
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint($"/swagger/v1/swagger.json", "API V1");
+                c.SwaggerEndpoint($"/swagger/v2/swagger.json", "API V2");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

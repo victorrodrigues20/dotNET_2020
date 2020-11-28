@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjBiblio.Application.InputModels;
 using ProjBiblio.Application.Interfaces;
@@ -5,6 +6,7 @@ using ProjBiblio.Application.ViewModels;
 
 namespace ProjBiblio.WebApi.Controllers
 {
+    [Authorize(AuthenticationSchemes="Bearer")]
     [ApiController]
     [ApiVersion( "1" )]
     [Route("v{version:apiVersion}/[controller]")]

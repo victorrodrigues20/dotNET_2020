@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProjBiblio.Application.Interfaces;
@@ -42,6 +43,13 @@ namespace ProjBiblio.Infrastructure.IoC
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+        }
+
+        public static void RegisterIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<BibliotecaDbContext>()
+                .AddDefaultTokenProviders();
         }
     }
 }

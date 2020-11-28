@@ -1,11 +1,12 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjBiblio.Domain.Entities;
 using ProjBiblio.Infrastructure.Data.Context.Config;
 
 namespace ProjBiblio.Infrastructure.Data.Context
 {
-    public class BibliotecaDbContext : DbContext
+    public class BibliotecaDbContext : IdentityDbContext
     {
         public BibliotecaDbContext(DbContextOptions<BibliotecaDbContext> options) : base(options)
         {

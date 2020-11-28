@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProjBiblio.Infrastructure.Data.Context;
@@ -19,6 +18,8 @@ using ProjBiblio.Application.InputModels;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ProjBiblio.WebApi
 {
@@ -53,35 +54,8 @@ namespace ProjBiblio.WebApi
 
             DependencyContainer.RegisterMappers(services);
             DependencyContainer.RegisterContexts(services, conn);
-            DependencyContainer.RegisterServices(services); 
-            
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            // services.AddSwaggerGen(c =>
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo
-            //     {
-            //         Version = "v1",
-            //         Title = "Biblioteca API",
-            //         Description = "Web API - Projeto Biblioteca FIB/BAURU",
-            //         TermsOfService = new Uri("https://example.com/terms"),
-            //         Contact = new OpenApiContact
-            //         {
-            //             Name = "Victor Rodrigues",
-            //             Email = "victorassisrd@gmail.com",
-            //             Url = new Uri("https://github.com/victorrodrigues20"),
-            //         },
-            //         License = new OpenApiLicense
-            //         {
-            //             Name = "Use under LICX",
-            //             Url = new Uri("https://example.com/license"),
-            //         }
-            //     });
-
-                // // Set the comments path for the Swagger JSON and UI.
-                // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                // c.IncludeXmlComments(xmlPath);
-            // });
+            DependencyContainer.RegisterServices(services);
+            DependencyContainer.RegisterIdentity(services); 
 
             services.AddSwaggerGen(c =>
             {
@@ -156,6 +130,8 @@ namespace ProjBiblio.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
